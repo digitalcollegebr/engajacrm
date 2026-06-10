@@ -1,0 +1,36 @@
+services:
+  engajacrm:
+    build: .
+    image: engajacrm:latest
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - engajacrm-data:/var/www/html/data
+      - engajacrm-custom:/var/www/html/custom
+      - engajacrm-client-custom:/var/www/html/client/custom
+
+  db:
+    image: mariadb:10.11
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-troque-esta-senha-root}
+      MARIADB_DATABASE: engajacrm
+      MARIADB_USER: engajacrm
+      MARIADB_PASSWORD: ${DB_PASSWORD:-troque-esta-senha}
+    volumes:
+      - engajacrm-db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  engajacrm-db:
+  engajacrm-data:
+  engajacrm-custom:
+  engajacrm-client-custom:

@@ -1,4 +1,22 @@
-## EspoCRM
+## EngajaCRM
+
+CRM da **Engaja Comunicação** — fork do [EspoCRM](https://www.espocrm.com) com a identidade visual da empresa
+(tema escuro "Engaja": preto `#121212`/`#1E1E1F`, amarelo `#F3BA17`, fonte Mulish, logo oficial).
+
+### Subir com Docker Compose (produção)
+
+```bash
+cp .env.example .env   # defina as senhas do banco
+docker compose up -d --build
+```
+
+Acesse `http://localhost:8080` e siga o instalador (banco: host `db`, database/usuário `engajacrm`, senha do `.env`).
+
+O tema **Engaja** e o nome **EngajaCRM** já são os padrões da instalação.
+
+---
+
+## EspoCRM (upstream)
 
 [![PHPStan level 8](https://img.shields.io/badge/PHPStan-level%208-brightgreen)](#espocrm)
 

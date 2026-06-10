@@ -1,0 +1,9 @@
+.git
+node_modules
+build
+vendor
+data/cache
+data/logs
+data/upload
+tests
+.env

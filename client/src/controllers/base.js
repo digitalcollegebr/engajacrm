@@ -158,7 +158,7 @@ class BaseController extends Controller {
      * Log out.
      */
     logout() {
-        const title = this.getConfig().get('applicationName') || 'EspoCRM';
+        const title = this.getConfig().get('applicationName') || 'EngajaCRM';
 
         $('head title').text(title);
 

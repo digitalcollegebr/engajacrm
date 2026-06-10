@@ -1,0 +1,156 @@
+// EngajaCRM theme — based on the Engaja Comunicação visual identity
+// https://engajacomunicacao.com.br/
+// Black (#000 / #1E1E1F) surfaces, yellow (#F3BA17) accent, Mulish typeface.
+
+@engaja-yellow: #F3BA17;
+@engaja-gold: #CFB22A;
+@engaja-black: #121212;
+@engaja-panel: #1E1E1F;
+
+@body-bg-value: @engaja-black;
+@panel-bg-value: @engaja-panel;
+
+@panel-default-text-value: #b9b9b9;
+@panel-default-bg-value: @panel-bg-value;
+@panel-border-width-value: 0px;
+
+@text-color-value: #e7e7e7;
+@text-white-color-value: @text-color-value;
+@text-gray-color-value: #8d8d8d;
+
+@main-gray-value: #ececec;
+
+@gray-soft-value: #d5d5d5;
+@gray-light-value: #8d8d8d;
+
+@gray-value: #989898;
+
+@brand-primary-value: @engaja-yellow;
+@brand-success-value: #5f9457;
+@brand-warning-value: @engaja-gold;
+@brand-danger-value: #b0505c;
+@brand-info-value: #6d6d6d;
+
+@state-danger-text-value: #c96f6c;
+@state-success-text-value: #84b886;
+@state-warning-text-value: @engaja-gold;
+@state-info-text-value: #c2c2c2;
+@state-primary-text-value: @engaja-yellow;
+
+@state-success-bg-value: #3a5438;
+@state-danger-bg-value: #422a2a;
+@state-warning-bg-value: #45391a;
+@state-info-bg-value: #3c3c3e;
+@state-primary-bg-value: #4a3c12;
+
+@state-default-text-value: #d2d2d2;
+@state-default-bg-value: #454545;
+
+@link-color-value: @engaja-yellow;
+@link-hover-color-value: lighten(@engaja-yellow, 12%);
+
+@table-bg-value: @panel-bg-value;
+@table-bg-accent-value: #181819;
+
+@panel-default-border-value: #353537;
+@panel-primary-text-value: @panel-default-text-value;
+
+@panel-success-bg-value: @state-success-bg-value;
+@panel-danger-bg-value: @state-danger-bg-value;
+@panel-warning-bg-value: @state-warning-bg-value;
+
+@warning-bg-value: #2c2a24;
+
+// Primary buttons: yellow background requires dark text
+@btn-primary-bg-value: @engaja-yellow;
+@btn-primary-border-value: @engaja-yellow;
+@btn-primary-color-value: @engaja-black;
+@btn-primary-hover-bg-value: darken(@engaja-yellow, 8%);
+@btn-primary-active-bg-value: darken(@engaja-yellow, 14%);
+@btn-primary-hover-border-value: @btn-primary-hover-bg-value;
+@btn-primary-active-border-value: darken(@engaja-yellow, 16%);
+
+@navbar-link-icon-color-value: #8d8d8d;
+@navbar-border-width-value: 0;
+@navbar-bg-value: #000000;
+
+@navbar-inverse-color-value: @gray-light-value;
+@navbar-inverse-bg-value: #000000;
+@navbar-inverse-link-color-value: #e7e7e7;
+@navbar-inverse-link-hover-color-value: @engaja-yellow;
+@navbar-inverse-link-active-bg-value: #1E1E1F;
+@navbar-inverse-link-icon-color-value: #b2b0b0;
+@navbar-inverse-link-icon-hover-color-value: @engaja-yellow;
+@navbar-inverse-link-hover-bg-value: #161617;
+@navbar-inverse-border-value: @panel-default-border-value;
+
+@default-border-color-value: #353537;
+
+@input-bg-value: #161617;
+@input-color-value: @text-color-value;
+@input-border-value: #45474c;
+@input-border-focus-value: @engaja-yellow;
+@input-bg-disabled-value: #505050;
+@input-color-disabled-value: @text-gray-color-value;
+
+@site-footer-color-value: @gray-light-value;
+
+@btn-default-bg-value: #2a2a2c;
+@btn-default-border-value: @input-border-value;
+@btn-default-color-value: #d1d1d1;
+
+@btn-default-hover-bg-value: darken(@btn-default-bg-value, 2%);
+@btn-default-hover-border-value: darken(@btn-default-border-value, 2%);
+@btn-default-active-bg-value: darken(@btn-default-bg-value, 6%);
+@btn-default-active-border-value: darken(@btn-default-border-value, 6%);
+
+@btn-text-color-value: #b9b9b9;
+
+@popover-bg-value: #1f1f22;
+
+@dropdown-bg-value: @popover-bg-value;
+@dropdown-link-color-value: @text-color-value;
+@dropdown-link-hover-color-value: @engaja-yellow;
+@dropdown-link-hover-bg-value: @navbar-inverse-link-hover-bg-value;
+@dropdown-divider-bg-value: @default-border-color-value;
+@dropdown-border-value: @panel-default-border-value;
+@dropdown-link-active-bg-value: lighten(@navbar-inverse-link-hover-bg-value, 3%);
+
+@select-item-bg-value: @table-bg-accent-value;
+@select-item-border-value: @btn-default-border-value;
+
+@calendar-today-bg-value: @table-bg-accent-value;
+@calendar-border-value: @default-border-color-value;
+@calendar-busy-bg-value: #523636;
+
+@label-color-value: #dfdfdf;
+@label-default-bg-value: #484545;
+
+@well-bg-value: @panel-bg-value;
+@well-border-value: @panel-default-border-value;
+
+@code-bg-value: #27292c;
+@code-color-value: #a9a9a9;
+@code-border-color-value: @default-border-color-value;
+
+@blockquote-border-color-value: @gray-value;
+
+@scroll-bg-value: @body-bg-value;
+@scroll-thumb-bg-value: @btn-default-bg-value;
+
+@collapsed-modal-bg-value: @dropdown-bg-value;
+
+@login-panel-heading-bg-value: @panel-bg-value;
+
+@default-box-shadow-value: none;
+@dropdown-box-shadow-value: none;
+
+@panel-border-width-value: var(--1px);
+@navbar-border-width-value: var(--1px);
+@dropdown-border-width-value: var(--1px);
+@modal-border-width-value: var(--1px);
+
+@border-radius-value: var(--6px);
+@border-radius-small-value: var(--4px);
+@panel-border-radius-value: var(--10px);
+@dropdown-border-radius-value: var(--6px);

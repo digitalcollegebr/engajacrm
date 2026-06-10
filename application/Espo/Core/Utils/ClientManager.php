@@ -251,7 +251,7 @@ class ClientManager
         $data = [
             'applicationId' => $this->applicationId,
             'apiUrl' => $this->apiUrl,
-            'applicationName' => $this->escapeValue($pageTitle ?? $this->config->get('applicationName', 'EspoCRM')),
+            'applicationName' => $this->escapeValue($pageTitle ?? $this->config->get('applicationName', 'EngajaCRM')),
             'cacheTimestamp' => $cacheTimestamp,
             'appTimestamp' => $appTimestamp,
             'loaderCacheTimestamp' => Json::encode($loaderCacheTimestamp),
