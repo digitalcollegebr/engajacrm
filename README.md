@@ -1,114 +1,130 @@
-## EngajaCRM
+# EngajaCRM
 
-CRM da **Engaja Comunicação** — fork do [EspoCRM](https://www.espocrm.com) com a identidade visual da empresa
-(tema escuro "Engaja": preto `#121212`/`#1E1E1F`, amarelo `#F3BA17`, fonte Mulish, logo oficial).
+CRM da **Engaja Comunicação**, construído sobre o [EspoCRM](https://www.espocrm.com) (AGPLv3) com a identidade visual da empresa:
 
-### Subir com Docker Compose (produção)
+- Tema **Engaja** (padrão de fábrica): interface escura — preto `#121212`/`#1E1E1F`, amarelo `#F3BA17`, dourado `#CFB22A` nos gráficos;
+- Fonte **Mulish** embutida;
+- Logo oficial da Engaja no login e na barra de navegação;
+- Nome **EngajaCRM** em título, instalação e e-mails;
+- Idioma `pt_BR`, moeda `BRL` e fuso `America/Fortaleza` como padrões do deploy.
 
-```bash
-cp .env.example .env   # defina as senhas do banco
-docker compose up -d --build
-```
-
-Acesse `http://localhost:8080` e siga o instalador (banco: host `db`, database/usuário `engajacrm`, senha do `.env`).
-
-O tema **Engaja** e o nome **EngajaCRM** já são os padrões da instalação.
+Imagem Docker pronta (multi-arquitetura AMD64/ARM64):
+**[`danielmonteirodc/engajacrm`](https://hub.docker.com/r/danielmonteirodc/engajacrm)** — tags `:9.3.8` e `:latest`.
 
 ---
 
-## EspoCRM (upstream)
+## Deploy em produção (Ubuntu + Docker)
 
-[![PHPStan level 8](https://img.shields.io/badge/PHPStan-level%208-brightgreen)](#espocrm)
+### Requisitos
 
-[EspoCRM](https://www.espocrm.com) is a free, open-source CRM platform designed to help organizations build and maintain strong customer relationships.
-It provides a wide range of tools to store, organize, and manage leads, contacts, sales opportunities, marketing campaigns,
-support cases, and more – all business information in a simple and intuitive interface.
+- Servidor Linux com [Docker e Docker Compose](https://docs.docker.com/engine/install/ubuntu/) instalados;
+- Domínio apontando para o servidor (ex.: `crm.engajacomunicacao.com.br`);
+- HTTPS via proxy reverso ou CDN na frente do serviço (Nginx, Traefik, Cloudflare etc.).
 
-![Screenshot](https://user-images.githubusercontent.com/1006792/226094559-995dfd2a-a18f-4619-a21b-79a4e671990a.png)
+### Passo a passo
 
-### Architecture
+1. Crie a pasta do deploy e copie [`docker-compose.yml`](docker-compose.yml) e [`.env.example`](.env.example) deste repositório:
 
-EspoCRM is a web application with a frontend designed as a single-page application and a REST API
-backend written in PHP.
+   ```bash
+   mkdir -p ~/engajacrm-docker && cd ~/engajacrm-docker
+   # copie os dois arquivos para esta pasta
+   cp .env.example .env
+   ```
 
-### Demo
+2. Edite o `.env`:
 
-You can try the CRM on an online [demo](https://www.espocrm.com/demo/).
+   ```bash
+   nano .env
+   ```
 
-### Requirements
+   - Defina **senhas fortes** em `MARIADB_ROOT_PASSWORD`, `MARIADB_PASSWORD` e `ESPOCRM_ADMIN_PASSWORD`;
+   - Ajuste `ESPOCRM_SITE_URL` para o domínio definitivo (ex.: `https://crm.engajacomunicacao.com.br`);
+   - Ajuste `WEBSOCKET_URL` para o mesmo domínio (ex.: `wss://crm.engajacomunicacao.com.br/wss`).
 
-* PHP 8.3 - 8.5;
-* MySQL 8.0 (and later), or MariaDB 10.3 (and later);
-* PostgreSQL 15 (and later).
+3. Suba o stack:
 
-For more information about server configuration, see [this article](https://docs.espocrm.com/administration/server-configuration/).
+   ```bash
+   docker compose up -d
+   ```
 
-### Download
+   Sobem 4 serviços: `engajacrm-db` (MariaDB), `engajacrm` (aplicação, porta 80), `engajacrm-daemon` (jobs/cron) e `engajacrm-websocket` (tempo real, porta 8080).
 
-[Download](https://www.espocrm.com/download/) the latest release from our website or from GitHub [releases](https://github.com/espocrm/espocrm/releases).
+4. A instalação é **automática** (banco, admin e configurações vêm do `.env`). Acompanhe com:
 
-### Release notes
+   ```bash
+   docker compose logs -f engajacrm
+   ```
 
-Release notes are available at GitHub [releases](https://github.com/espocrm/espocrm/releases).
+5. Acesse o domínio e entre com `ESPOCRM_ADMIN_USERNAME` / `ESPOCRM_ADMIN_PASSWORD`. O tema Engaja e o nome EngajaCRM já estão aplicados.
 
-### Documentation
+### Proxy reverso / HTTPS
 
-See the [documentation](https://docs.espocrm.com) for administrators, users and developers.
+Encaminhe no proxy:
 
-### Why EspoCRM?
+- `https://SEU_DOMINIO` → `http://servidor:80`;
+- `wss://SEU_DOMINIO/wss` → `http://servidor:8080` (websocket).
 
-* Open-source transparency. EspoCRM's source code is open and accessible, so anyone can inspect it and see how data is being managed within the CRM.
-* Customization freedom. You can develop features, create custom entities, fields, relationships, buttons to make the system fit your specific needs. EspoCRM is more than a CRM – it's a platform for building custom business applications.
-* Clean user interface. EspoCRM offers an uncluttered, minimalist, and fast user interface, which is easy to navigate and has a short learning curve.
-* Straightforward REST API. It can be easily integrated with other applications using a REST API.
+### Backup
 
-### Who is EspoCRM for?
+Os dados vivem em dois volumes Docker: `engajacrm-db` (banco) e `engajacrm-data` (uploads, config, customizações). Faça backup de ambos, por exemplo:
 
-* Startups, small & medium-sized businesses. It's an affordable solution that is flexible and fully customizable.
-* Developers & tech enthusiasts. You can extend functionalities, build extensions, and create custom integrations.
-* Anyone seeking a free CRM. If you're looking for a user-friendly and secure CRM platform, it can be a good option.
+```bash
+docker run --rm -v engajacrm-docker_engajacrm-db:/data -v $(pwd):/backup alpine \
+  tar czf /backup/engajacrm-db-$(date +%F).tar.gz -C /data .
+```
 
-### Installing stable version
+### Atualização
 
-See installation instructions:
+```bash
+docker compose pull && docker compose up -d
+```
 
-* [Manual installation](https://docs.espocrm.com/administration/installation/)
-* [Installation by script](https://docs.espocrm.com/administration/installation-by-script/)
-* [Installation with Docker](https://docs.espocrm.com/administration/docker/installation/)
-* [Installation with Traefik](https://docs.espocrm.com/administration/docker/traefik/)
+---
 
-### Bug reporting
+## Build da imagem (manutenção do fork)
 
-Create a [GitHub issue](https://github.com/espocrm/espocrm/issues/new/choose) or post on our [forum](https://forum.espocrm.com/forum/bug-reports).
+O build compila o fork completo (composer + npm + grunt) e sobrepõe o resultado na imagem oficial `espocrm/espocrm`, herdando o entrypoint de instalação automática, daemon e websocket.
 
-### Development
+```bash
+# builder multi-arch (uma vez por máquina)
+docker buildx create --name engaja-multiarch --driver docker-container
 
-See the [developer documentation](https://docs.espocrm.com/development/).
+# build + push (AMD64 + ARM64)
+docker buildx build --builder engaja-multiarch \
+  --platform linux/amd64,linux/arm64 \
+  -t danielmonteirodc/engajacrm:9.3.8 \
+  -t danielmonteirodc/engajacrm:latest \
+  --push .
+```
 
-We highly recommend using an IDE for development. The backend codebase follows SOLID principles, utilizes interfaces, static typing and generics. We recommend to start learning EspoCRM from the Dependency Injection article in the documentation.
+Observações:
 
-Metadata plays an integral role in the EspoCRM application. All possible parameters are described with a JSON Schema, meaning you will have autocompletion in the IDE. You can also find the full metadata reference in the documentation.
+- Em máquinas com pouca RAM na VM do Docker (< 4GB), rode primeiro cada plataforma sem `--push` para popular o cache, depois o comando completo;
+- O `.npmrc` com `ignore-scripts=true` é criado no build para evitar o `phantomjs-prebuilt` (dependência de testes sem binário ARM64).
 
-### Community & Support
+## Customização do tema
 
-If you have a question regarding some features, need help or customizations, want to get in touch with other EspoCRM users, or add a feature request, please use our [community forum](https://forum.espocrm.com/). We believe that using the forum to ask for help and share experience allows everyone in the community to contribute and use this knowledge later.
+O tema vive em [`frontend/less/engaja/`](frontend/less/engaja/):
 
-### License
+- [`variables.less`](frontend/less/engaja/variables.less) — cores e variáveis (a paleta da Engaja está no topo);
+- [`custom.less`](frontend/less/engaja/custom.less) — regras extras e fonte Mulish;
+- [`Engaja.json`](application/Espo/Resources/metadata/themes/Engaja.json) — logo, cores de gráficos e calendário.
 
-EspoCRM is an open-source project licensed under [GNU AGPLv3](https://raw.githubusercontent.com/espocrm/espocrm/master/LICENSE.txt).
+Após alterar, reconstrua e publique a imagem (seção anterior) e rode `docker compose pull && docker compose up -d` no servidor.
 
-### Contributing
+## Atualizando a partir do EspoCRM upstream
 
-Before we can merge your pull request, you need to accept our CLA [here](https://github.com/espocrm/cla). See the [contributing guidelines](https://github.com/espocrm/espocrm/blob/master/.github/CONTRIBUTING.md).
+A branch `engaja-stable` é baseada na **tag estável** do EspoCRM (atualmente `9.3.8`) com os commits de customização por cima. Para acompanhar uma nova release:
 
-Branches:
+```bash
+git remote add upstream https://github.com/espocrm/espocrm.git  # uma vez
+git fetch upstream --tags
+git checkout -b engaja-NOVA_VERSAO NOVA_VERSAO
+git cherry-pick <commits de customização da engaja-stable>
+```
 
-* *fix* – upcoming maintenance release; minor fixes should be pushed to this branch;
-* *master* – develop branch; new features should be pushed to this branch;
-* *stable* – last stable release.
+Atualize também a tag base no [`Dockerfile`](Dockerfile) (`FROM espocrm/espocrm:NOVA_VERSAO`), reconstrua e publique.
 
-### Language
+## Licença
 
-If you want to improve existing translation or add a language that is not available yet, you can contribute on our [POEditor](https://poeditor.com/join/project/gLDKZtUF4i) project. See instructions [here](https://www.espocrm.com/blog/how-to-use-poeditor-to-translate-espocrm/). It may be reasonable to let us know about your intention to join the POEditor project by posting on our forum or via the contact form on our website.
-
-Changes on POEditor are usually merged to the GitHub repository before minor releases.
+Este projeto é um fork do [EspoCRM](https://github.com/espocrm/espocrm), licenciado sob [GNU AGPLv3](LICENSE.txt). Em conformidade com a Seção 7(b) da licença, a interface mantém o crédito "powered by EspoCRM" no rodapé. O código-fonte deste fork permanece disponível sob a mesma licença.
