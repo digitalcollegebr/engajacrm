@@ -391,7 +391,7 @@ class Installer
             'siteUrl' => $siteUrl,
             'cryptKey' => Util::generateSecretKey(),
             'hashSecretKey' => Util::generateSecretKey(),
-            'theme' => $saveData['theme'] ?? 'Espo',
+            'theme' => $saveData['theme'] ?? 'Engaja',
         ];
 
         if (empty($saveData['defaultPermissions']['user'])) {

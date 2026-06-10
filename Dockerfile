@@ -20,9 +20,11 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 WORKDIR /src
 COPY . .
 
-# --ignore-scripts evita o phantomjs-prebuilt (sem binário em algumas arquiteturas);
-# os dois scripts de postinstall do EspoCRM são executados manualmente em seguida.
-RUN npm ci --no-audit --no-fund --ignore-scripts \
+# ignore-scripts evita o phantomjs-prebuilt (sem binário em algumas arquiteturas);
+# vale também para o npm ci interno do grunt. Os dois scripts de postinstall do
+# EspoCRM são executados manualmente em seguida.
+RUN echo "ignore-scripts=true" > .npmrc \
+    && npm ci --no-audit --no-fund \
     && node js/scripts/postinstall-cleanup \
     && node js/scripts/prepare-lib-original.js \
     && npm run build \
@@ -47,9 +49,9 @@ RUN { \
         echo 'upload_max_filesize = 50M'; \
     } > /usr/local/etc/php/conf.d/engajacrm.ini
 
-# DocumentRoot em public/ com alias para client/ (layout EspoCRM 8+)
-RUN sed -ri 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf \
-    && printf '\nAlias /client /var/www/html/client\n<Directory /var/www/html/client>\n    Require all granted\n</Directory>\n<Directory /var/www/html/public>\n    AllowOverride All\n</Directory>\n' >> /etc/apache2/sites-available/000-default.conf
+# DocumentRoot na raiz do app: o .htaccess do dist redireciona para public/
+# e bloqueia o acesso a data/, application/, custom/ e vendor/.
+RUN printf '\n<Directory /var/www/html>\n    AllowOverride All\n</Directory>\n' >> /etc/apache2/sites-available/000-default.conf
 
 COPY --from=builder --chown=www-data:www-data /dist /var/www/html
 
