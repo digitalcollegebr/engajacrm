@@ -1,37 +1,116 @@
 services:
-  engajacrm:
-    # No servidor, remova a linha "build:" para usar a imagem do Docker Hub
-    build: .
-    image: danielmonteirodc/engajacrm:latest
-    restart: unless-stopped
-    ports:
-      - "8080:80"
-    depends_on:
-      db:
-        condition: service_healthy
-    volumes:
-      - engajacrm-data:/var/www/html/data
-      - engajacrm-custom:/var/www/html/custom
-      - engajacrm-client-custom:/var/www/html/client/custom
-
-  db:
-    image: mariadb:10.11
-    restart: unless-stopped
+  engajacrm-db:
+    image: mariadb:latest
+    container_name: engajacrm-db
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --innodb-file-per-table=1
     environment:
-      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-troque-esta-senha-root}
-      MARIADB_DATABASE: engajacrm
-      MARIADB_USER: engajacrm
-      MARIADB_PASSWORD: ${DB_PASSWORD:-troque-esta-senha}
+      TZ: ${TZ}
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${MARIADB_DATABASE}
+      MARIADB_USER: ${MARIADB_USER}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
     volumes:
       - engajacrm-db:/var/lib/mysql
+    restart: unless-stopped
     healthcheck:
       test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
-      interval: 10s
-      timeout: 5s
-      retries: 10
+      interval: 20s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    networks:
+      - engajacrm-net
+
+  engajacrm:
+    image: danielmonteirodc/engajacrm:9.3.8
+    container_name: engajacrm
+    environment:
+      TZ: ${TZ}
+      ESPOCRM_DATABASE_PLATFORM: Mysql
+      ESPOCRM_DATABASE_HOST: engajacrm-db
+      ESPOCRM_DATABASE_PORT: 3306
+      ESPOCRM_DATABASE_NAME: ${MARIADB_DATABASE}
+      ESPOCRM_DATABASE_USER: ${MARIADB_USER}
+      ESPOCRM_DATABASE_PASSWORD: ${MARIADB_PASSWORD}
+
+      ESPOCRM_ADMIN_USERNAME: ${ESPOCRM_ADMIN_USERNAME}
+      ESPOCRM_ADMIN_PASSWORD: ${ESPOCRM_ADMIN_PASSWORD}
+
+      ESPOCRM_SITE_URL: ${ESPOCRM_SITE_URL}
+
+      ESPOCRM_LANGUAGE: pt_BR
+      ESPOCRM_DATE_FORMAT: DD/MM/YYYY
+      ESPOCRM_TIME_FORMAT: HH:mm
+      ESPOCRM_TIME_ZONE: ${TZ}
+      ESPOCRM_WEEK_START: 1
+      ESPOCRM_DEFAULT_CURRENCY: BRL
+      ESPOCRM_THOUSAND_SEPARATOR: .
+      ESPOCRM_DECIMAL_MARK: ","
+
+      ESPOCRM_CONFIG_THEME: Engaja
+      ESPOCRM_CONFIG_APPLICATION_NAME: EngajaCRM
+
+      ESPOCRM_CONFIG_USE_WEB_SOCKET: "true"
+      ESPOCRM_CONFIG_WEB_SOCKET_URL: "${WEBSOCKET_URL}"
+      ESPOCRM_CONFIG_WEB_SOCKET_ZERO_M_Q_SUBMISSION_DSN: "tcp://engajacrm-websocket:7777"
+    volumes:
+      - engajacrm-data:/var/www/html
+    restart: unless-stopped
+    depends_on:
+      engajacrm-db:
+        condition: service_healthy
+    ports:
+      - "80:80"
+    networks:
+      - engajacrm-net
+
+  engajacrm-daemon:
+    image: danielmonteirodc/engajacrm:9.3.8
+    container_name: engajacrm-daemon
+    environment:
+      TZ: ${TZ}
+    volumes:
+      - engajacrm-data:/var/www/html
+    restart: unless-stopped
+    entrypoint: docker-daemon.sh
+    depends_on:
+      engajacrm-db:
+        condition: service_healthy
+      engajacrm:
+        condition: service_started
+    networks:
+      - engajacrm-net
+
+  engajacrm-websocket:
+    image: danielmonteirodc/engajacrm:9.3.8
+    container_name: engajacrm-websocket
+    environment:
+      TZ: ${TZ}
+      ESPOCRM_CONFIG_USE_WEB_SOCKET: "true"
+      ESPOCRM_CONFIG_WEB_SOCKET_URL: "${WEBSOCKET_URL}"
+      ESPOCRM_CONFIG_WEB_SOCKET_ZERO_M_Q_SUBSCRIBER_DSN: "tcp://*:7777"
+      ESPOCRM_CONFIG_WEB_SOCKET_ZERO_M_Q_SUBMISSION_DSN: "tcp://engajacrm-websocket:7777"
+    volumes:
+      - engajacrm-data:/var/www/html
+    restart: unless-stopped
+    entrypoint: docker-websocket.sh
+    depends_on:
+      engajacrm-db:
+        condition: service_healthy
+      engajacrm:
+        condition: service_started
+    ports:
+      - "8080:8080"
+    networks:
+      - engajacrm-net
 
 volumes:
   engajacrm-db:
   engajacrm-data:
-  engajacrm-custom:
-  engajacrm-client-custom:
+
+networks:
+  engajacrm-net:
+    driver: bridge
