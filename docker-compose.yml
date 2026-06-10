@@ -1,7 +1,8 @@
 services:
   engajacrm:
+    # No servidor, remova a linha "build:" para usar a imagem do Docker Hub
     build: .
-    image: engajacrm:latest
+    image: danielmonteirodc/engajacrm:latest
     restart: unless-stopped
     ports:
       - "8080:80"

@@ -3,7 +3,9 @@
 # Estágio 1: build completo (composer + npm + grunt) a partir do código deste fork.
 # Estágio 2: imagem final PHP 8.3 + Apache servindo o build.
 
-FROM php:8.3-cli AS builder
+# O build (composer + npm + grunt) gera artefatos independentes de arquitetura,
+# então roda sempre na plataforma nativa do host ($BUILDPLATFORM).
+FROM --platform=$BUILDPLATFORM php:8.3-cli AS builder
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
         git unzip libzip-dev libicu-dev libpng-dev libjpeg-dev libfreetype6-dev \
@@ -23,6 +25,9 @@ COPY . .
 # ignore-scripts evita o phantomjs-prebuilt (sem binário em algumas arquiteturas);
 # vale também para o npm ci interno do grunt. Os dois scripts de postinstall do
 # EspoCRM são executados manualmente em seguida.
+# Passo separado para expor erros do composer (o grunt suprime a saída dele)
+RUN composer install --no-dev --no-interaction || (composer diagnose; exit 1)
+
 RUN echo "ignore-scripts=true" > .npmrc \
     && npm ci --no-audit --no-fund \
     && node js/scripts/postinstall-cleanup \
