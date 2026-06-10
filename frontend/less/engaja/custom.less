@@ -1,0 +1,20 @@
+// EngajaCRM customizations on top of the variable overrides.
+
+@font-path: "../../fonts";
+@import "fonts.less";
+
+:root {
+    --font-family: Mulish, Inter, sans-serif;
+}
+
+// Yellow primary elements need dark text for contrast
+.btn-primary,
+.label-primary,
+.badge.badge-primary {
+    color: #121212;
+}
+
+// Brand accent on active navbar items
+#navbar .navbar .nav > li.active > a {
+    border-color: #F3BA17;
+}

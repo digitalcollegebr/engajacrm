@@ -33,7 +33,7 @@ use Espo\Core\Utils\Theme\MetadataProvider;
 
 class ThemeManager
 {
-    private string $defaultName = 'Espo';
+    private string $defaultName = 'Engaja';
 
     private string $defaultLogoSrc = 'client/img/logo.svg';
 

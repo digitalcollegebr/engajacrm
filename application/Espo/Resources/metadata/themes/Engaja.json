@@ -1,0 +1,20 @@
+{
+    "stylesheet": "client/css/espo/engaja.css",
+    "stylesheetIframe": "client/css/espo/engaja-iframe.css",
+    "stylesheetIframeFallback": "client/css/espo/dark-iframe.css",
+    "logo": "client/img/logo-engaja.svg",
+    "textColor": "#e7e7e7",
+    "chartGridColor": "#646060",
+    "chartTickColor": "#575454",
+    "chartSuccessColor": "#5d8a55",
+    "chartColorList": ["#F3BA17", "#CFB22A", "#8D8D8D", "#b07e53", "#7492cc", "#a1404a", "#6a5f96", "#a17a97", "#858585"],
+    "chartColorAlternativeList": ["#F3BA17", "#CFB22A", "#8D8D8D", "#7492cc", "#a1404a"],
+    "calendarColors": {
+        "": "#cfb22aa0",
+        "bg": "#4a3c12b3",
+        "Meeting": "#4c5972",
+        "Call": "#9b4260",
+        "Task": "#52744c"
+    },
+    "isDark": true
+}

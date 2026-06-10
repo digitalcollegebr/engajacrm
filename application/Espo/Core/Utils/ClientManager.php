@@ -249,7 +249,7 @@ class ClientManager
         $data = [
             'applicationId' => $this->applicationId,
             'apiUrl' => $this->apiUrl,
-            'applicationName' => $pageTitle ?? $this->config->get('applicationName', 'EspoCRM'),
+            'applicationName' => $pageTitle ?? $this->config->get('applicationName', 'EngajaCRM'),
             'cacheTimestamp' => $cacheTimestamp,
             'appTimestamp' => $appTimestamp,
             'loaderCacheTimestamp' => Json::encode($loaderCacheTimestamp),
