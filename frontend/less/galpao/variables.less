@@ -1,58 +1,59 @@
-// EngajaCRM theme — based on the Engaja Comunicação visual identity
-// https://engajacomunicacao.com.br/
-// Black (#000 / #1E1E1F) surfaces, yellow (#F3BA17) accent, Mulish typeface.
+// Galpão Design CRM theme — based on the Galpão Design visual identity
+// https://www.galpaodesign.com/
+// Black surfaces, green (#25CE41) accent, beige (#EBEBDE) details, Montserrat typeface.
 
-@engaja-yellow: #F3BA17;
-@engaja-gold: #CFB22A;
-@engaja-black: #121212;
-@engaja-panel: #1E1E1F;
+@galpao-green: #25CE41;
+@galpao-green-soft: #4ADE63;
+@galpao-beige: #EBEBDE;
+@galpao-black: #121212;
+@galpao-panel: #1C1C1B;
 
-@body-bg-value: @engaja-black;
-@panel-bg-value: @engaja-panel;
+@body-bg-value: @galpao-black;
+@panel-bg-value: @galpao-panel;
 
-@panel-default-text-value: #b9b9b9;
+@panel-default-text-value: #b9b9b4;
 @panel-default-bg-value: @panel-bg-value;
 @panel-border-width-value: 0px;
 
-@text-color-value: #e7e7e7;
+@text-color-value: #e8e8e2;
 @text-white-color-value: @text-color-value;
-@text-gray-color-value: #8d8d8d;
+@text-gray-color-value: #8f8f8a;
 
 @main-gray-value: #ececec;
 
-@gray-soft-value: #d5d5d5;
-@gray-light-value: #8d8d8d;
+@gray-soft-value: #d5d5d0;
+@gray-light-value: #8f8f8a;
 
-@gray-value: #989898;
+@gray-value: #989893;
 
-@brand-primary-value: @engaja-yellow;
-@brand-success-value: #5f9457;
-@brand-warning-value: @engaja-gold;
+@brand-primary-value: @galpao-green;
+@brand-success-value: #4d9457;
+@brand-warning-value: #c2a84a;
 @brand-danger-value: #b0505c;
-@brand-info-value: #6d6d6d;
+@brand-info-value: #6d6d6a;
 
 @state-danger-text-value: #c96f6c;
 @state-success-text-value: #84b886;
-@state-warning-text-value: @engaja-gold;
-@state-info-text-value: #c2c2c2;
-@state-primary-text-value: @engaja-yellow;
+@state-warning-text-value: #c2a84a;
+@state-info-text-value: #c2c2bd;
+@state-primary-text-value: @galpao-green-soft;
 
-@state-success-bg-value: #3a5438;
+@state-success-bg-value: #38543a;
 @state-danger-bg-value: #422a2a;
-@state-warning-bg-value: #45391a;
-@state-info-bg-value: #3c3c3e;
-@state-primary-bg-value: #4a3c12;
+@state-warning-bg-value: #45401a;
+@state-info-bg-value: #3c3c3a;
+@state-primary-bg-value: #12401c;
 
-@state-default-text-value: #d2d2d2;
-@state-default-bg-value: #454545;
+@state-default-text-value: #d2d2cd;
+@state-default-bg-value: #454543;
 
-@link-color-value: @engaja-yellow;
-@link-hover-color-value: lighten(@engaja-yellow, 12%);
+@link-color-value: @galpao-green-soft;
+@link-hover-color-value: lighten(@galpao-green-soft, 10%);
 
 @table-bg-value: @panel-bg-value;
-@table-bg-accent-value: #181819;
+@table-bg-accent-value: #181817;
 
-@panel-default-border-value: #353537;
+@panel-default-border-value: #353533;
 @panel-primary-text-value: @panel-default-text-value;
 
 @panel-success-bg-value: @state-success-bg-value;
@@ -61,56 +62,56 @@
 
 @warning-bg-value: #2c2a24;
 
-// Primary buttons: yellow background requires dark text
-@btn-primary-bg-value: @engaja-yellow;
-@btn-primary-border-value: @engaja-yellow;
-@btn-primary-color-value: @engaja-black;
-@btn-primary-hover-bg-value: darken(@engaja-yellow, 8%);
-@btn-primary-active-bg-value: darken(@engaja-yellow, 14%);
+// Primary buttons: green background requires dark text
+@btn-primary-bg-value: @galpao-green;
+@btn-primary-border-value: @galpao-green;
+@btn-primary-color-value: #0E1F12;
+@btn-primary-hover-bg-value: darken(@galpao-green, 7%);
+@btn-primary-active-bg-value: darken(@galpao-green, 12%);
 @btn-primary-hover-border-value: @btn-primary-hover-bg-value;
-@btn-primary-active-border-value: darken(@engaja-yellow, 16%);
+@btn-primary-active-border-value: darken(@galpao-green, 14%);
 
-@navbar-link-icon-color-value: #8d8d8d;
+@navbar-link-icon-color-value: #8f8f8a;
 @navbar-border-width-value: 0;
 @navbar-bg-value: #000000;
 
 @navbar-inverse-color-value: @gray-light-value;
 @navbar-inverse-bg-value: #000000;
-@navbar-inverse-link-color-value: #e7e7e7;
-@navbar-inverse-link-hover-color-value: @engaja-yellow;
-@navbar-inverse-link-active-bg-value: #1E1E1F;
-@navbar-inverse-link-icon-color-value: #b2b0b0;
-@navbar-inverse-link-icon-hover-color-value: @engaja-yellow;
-@navbar-inverse-link-hover-bg-value: #161617;
+@navbar-inverse-link-color-value: #e8e8e2;
+@navbar-inverse-link-hover-color-value: @galpao-green-soft;
+@navbar-inverse-link-active-bg-value: #1C1C1B;
+@navbar-inverse-link-icon-color-value: #b2b0ac;
+@navbar-inverse-link-icon-hover-color-value: @galpao-green-soft;
+@navbar-inverse-link-hover-bg-value: #161615;
 @navbar-inverse-border-value: @panel-default-border-value;
 
-@default-border-color-value: #353537;
+@default-border-color-value: #353533;
 
-@input-bg-value: #161617;
+@input-bg-value: #161615;
 @input-color-value: @text-color-value;
 @input-border-value: #45474c;
-@input-border-focus-value: @engaja-yellow;
+@input-border-focus-value: @galpao-green;
 @input-bg-disabled-value: #505050;
 @input-color-disabled-value: @text-gray-color-value;
 
 @site-footer-color-value: @gray-light-value;
 
-@btn-default-bg-value: #2a2a2c;
+@btn-default-bg-value: #2a2a29;
 @btn-default-border-value: @input-border-value;
-@btn-default-color-value: #d1d1d1;
+@btn-default-color-value: #d1d1cc;
 
 @btn-default-hover-bg-value: darken(@btn-default-bg-value, 2%);
 @btn-default-hover-border-value: darken(@btn-default-border-value, 2%);
 @btn-default-active-bg-value: darken(@btn-default-bg-value, 6%);
 @btn-default-active-border-value: darken(@btn-default-border-value, 6%);
 
-@btn-text-color-value: #b9b9b9;
+@btn-text-color-value: #b9b9b4;
 
-@popover-bg-value: #1f1f22;
+@popover-bg-value: #1f1f1e;
 
 @dropdown-bg-value: @popover-bg-value;
 @dropdown-link-color-value: @text-color-value;
-@dropdown-link-hover-color-value: @engaja-yellow;
+@dropdown-link-hover-color-value: @galpao-green-soft;
 @dropdown-link-hover-bg-value: @navbar-inverse-link-hover-bg-value;
 @dropdown-divider-bg-value: @default-border-color-value;
 @dropdown-border-value: @panel-default-border-value;
@@ -123,14 +124,14 @@
 @calendar-border-value: @default-border-color-value;
 @calendar-busy-bg-value: #523636;
 
-@label-color-value: #dfdfdf;
-@label-default-bg-value: #484545;
+@label-color-value: #dfdfda;
+@label-default-bg-value: #484543;
 
 @well-bg-value: @panel-bg-value;
 @well-border-value: @panel-default-border-value;
 
 @code-bg-value: #27292c;
-@code-color-value: #a9a9a9;
+@code-color-value: #a9a9a4;
 @code-border-color-value: @default-border-color-value;
 
 @blockquote-border-color-value: @gray-value;

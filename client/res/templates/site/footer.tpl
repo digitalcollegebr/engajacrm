@@ -1,4 +1,4 @@
-<p class="credit small">EngajaCRM &middot;
+<p class="credit small">Galpão Design CRM &middot;
 <a
     href="https://www.espocrm.com"
     title="Powered by EspoCRM"

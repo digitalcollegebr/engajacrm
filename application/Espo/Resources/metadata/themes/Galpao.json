@@ -1,0 +1,20 @@
+{
+    "stylesheet": "client/css/espo/galpao.css",
+    "stylesheetIframe": "client/css/espo/galpao-iframe.css",
+    "stylesheetIframeFallback": "client/css/espo/dark-iframe.css",
+    "logo": "client/img/logo-galpao.png",
+    "textColor": "#e8e8e2",
+    "chartGridColor": "#646060",
+    "chartTickColor": "#575454",
+    "chartSuccessColor": "#4d9457",
+    "chartColorList": ["#25CE41", "#EBEBDE", "#8f8f8a", "#c2a84a", "#7492cc", "#a1404a", "#6a5f96", "#a17a97", "#858585"],
+    "chartColorAlternativeList": ["#25CE41", "#EBEBDE", "#c2a84a", "#7492cc", "#a1404a"],
+    "calendarColors": {
+        "": "#4ade63a0",
+        "bg": "#12401cb3",
+        "Meeting": "#4c5972",
+        "Call": "#9b4260",
+        "Task": "#52744c"
+    },
+    "isDark": true
+}

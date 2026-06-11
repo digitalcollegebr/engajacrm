@@ -1,15 +1,15 @@
-# EngajaCRM
+# Galpão Design CRM
 
-CRM da **Engaja Comunicação**, construído sobre o [EspoCRM](https://www.espocrm.com) (AGPLv3) com a identidade visual da empresa:
+CRM da **Galpão Design**, construído sobre o [EspoCRM](https://www.espocrm.com) (AGPLv3) com a identidade visual da empresa:
 
-- Tema **Engaja** (padrão de fábrica): interface escura — preto `#121212`/`#1E1E1F`, amarelo `#F3BA17`, dourado `#CFB22A` nos gráficos;
-- Fonte **Mulish** embutida;
-- Logo oficial da Engaja no login e na barra de navegação;
-- Nome **EngajaCRM** em título, instalação e e-mails;
+- Tema **Galpao** (padrão de fábrica): interface escura — preto `#121212`/`#1C1C1B`, verde `#25CE41`, bege `#EBEBDE` nos gráficos;
+- Fonte **Montserrat** embutida;
+- Logo oficial do Galpão Design no login e na barra de navegação;
+- Nome **Galpão Design CRM** em título, instalação e e-mails;
 - Idioma `pt_BR`, moeda `BRL` e fuso `America/Fortaleza` como padrões do deploy.
 
 Imagem Docker pronta (multi-arquitetura AMD64/ARM64):
-**[`danielmonteirodc/engajacrm`](https://hub.docker.com/r/danielmonteirodc/engajacrm)** — tags `:9.3.8` e `:latest`.
+**[`danielmonteirodc/galpaocrm`](https://hub.docker.com/r/danielmonteirodc/galpaocrm)** — tags `:9.3.8` e `:latest`.
 
 ---
 
@@ -18,7 +18,7 @@ Imagem Docker pronta (multi-arquitetura AMD64/ARM64):
 ### Requisitos
 
 - Servidor Linux com [Docker e Docker Compose](https://docs.docker.com/engine/install/ubuntu/) instalados;
-- Domínio apontando para o servidor (ex.: `crm.engajacomunicacao.com.br`);
+- Domínio apontando para o servidor (ex.: `crm.galpaodesign.com`);
 - HTTPS via proxy reverso ou CDN na frente do serviço (Nginx, Traefik, Cloudflare etc.).
 
 ### Passo a passo
@@ -26,7 +26,7 @@ Imagem Docker pronta (multi-arquitetura AMD64/ARM64):
 1. Crie a pasta do deploy e copie [`docker-compose.yml`](docker-compose.yml) e [`.env.example`](.env.example) deste repositório:
 
    ```bash
-   mkdir -p ~/engajacrm-docker && cd ~/engajacrm-docker
+   mkdir -p ~/galpaocrm-docker && cd ~/galpaocrm-docker
    # copie os dois arquivos para esta pasta
    cp .env.example .env
    ```
@@ -38,8 +38,8 @@ Imagem Docker pronta (multi-arquitetura AMD64/ARM64):
    ```
 
    - Defina **senhas fortes** em `MARIADB_ROOT_PASSWORD`, `MARIADB_PASSWORD` e `ESPOCRM_ADMIN_PASSWORD`;
-   - Ajuste `ESPOCRM_SITE_URL` para o domínio definitivo (ex.: `https://crm.engajacomunicacao.com.br`);
-   - Ajuste `WEBSOCKET_URL` para o mesmo domínio (ex.: `wss://crm.engajacomunicacao.com.br/wss`).
+   - Ajuste `ESPOCRM_SITE_URL` para o domínio definitivo (ex.: `https://crm.galpaodesign.com`);
+   - Ajuste `WEBSOCKET_URL` para o mesmo domínio (ex.: `wss://crm.galpaodesign.com/wss`).
 
 3. Suba o stack:
 
@@ -47,15 +47,15 @@ Imagem Docker pronta (multi-arquitetura AMD64/ARM64):
    docker compose up -d
    ```
 
-   Sobem 4 serviços: `engajacrm-db` (MariaDB), `engajacrm` (aplicação, porta 80), `engajacrm-daemon` (jobs/cron) e `engajacrm-websocket` (tempo real, porta 8080).
+   Sobem 4 serviços: `galpaocrm-db` (MariaDB), `galpaocrm` (aplicação, porta 80), `galpaocrm-daemon` (jobs/cron) e `galpaocrm-websocket` (tempo real, porta 8080).
 
 4. A instalação é **automática** (banco, admin e configurações vêm do `.env`). Acompanhe com:
 
    ```bash
-   docker compose logs -f engajacrm
+   docker compose logs -f galpaocrm
    ```
 
-5. Acesse o domínio e entre com `ESPOCRM_ADMIN_USERNAME` / `ESPOCRM_ADMIN_PASSWORD`. O tema Engaja e o nome EngajaCRM já estão aplicados.
+5. Acesse o domínio e entre com `ESPOCRM_ADMIN_USERNAME` / `ESPOCRM_ADMIN_PASSWORD`. O tema Galpao e o nome Galpão Design CRM já estão aplicados.
 
 ### Proxy reverso / HTTPS
 
@@ -66,11 +66,11 @@ Encaminhe no proxy:
 
 ### Backup
 
-Os dados vivem em dois volumes Docker: `engajacrm-db` (banco) e `engajacrm-data` (uploads, config, customizações). Faça backup de ambos, por exemplo:
+Os dados vivem em dois volumes Docker: `galpaocrm-db` (banco) e `galpaocrm-data` (uploads, config, customizações). Faça backup de ambos, por exemplo:
 
 ```bash
-docker run --rm -v engajacrm-docker_engajacrm-db:/data -v $(pwd):/backup alpine \
-  tar czf /backup/engajacrm-db-$(date +%F).tar.gz -C /data .
+docker run --rm -v galpaocrm-docker_galpaocrm-db:/data -v $(pwd):/backup alpine \
+  tar czf /backup/galpaocrm-db-$(date +%F).tar.gz -C /data .
 ```
 
 ### Atualização
@@ -92,8 +92,8 @@ docker buildx create --name engaja-multiarch --driver docker-container
 # build + push (AMD64 + ARM64)
 docker buildx build --builder engaja-multiarch \
   --platform linux/amd64,linux/arm64 \
-  -t danielmonteirodc/engajacrm:9.3.8 \
-  -t danielmonteirodc/engajacrm:latest \
+  -t danielmonteirodc/galpaocrm:9.3.8 \
+  -t danielmonteirodc/galpaocrm:latest \
   --push .
 ```
 
@@ -104,23 +104,23 @@ Observações:
 
 ## Customização do tema
 
-O tema vive em [`frontend/less/engaja/`](frontend/less/engaja/):
+O tema vive em [`frontend/less/galpao/`](frontend/less/galpao/):
 
-- [`variables.less`](frontend/less/engaja/variables.less) — cores e variáveis (a paleta da Engaja está no topo);
-- [`custom.less`](frontend/less/engaja/custom.less) — regras extras e fonte Mulish;
-- [`Engaja.json`](application/Espo/Resources/metadata/themes/Engaja.json) — logo, cores de gráficos e calendário.
+- [`variables.less`](frontend/less/galpao/variables.less) — cores e variáveis (a paleta do Galpão Design está no topo);
+- [`custom.less`](frontend/less/galpao/custom.less) — regras extras e fonte Montserrat;
+- [`Galpao.json`](application/Espo/Resources/metadata/themes/Galpao.json) — logo, cores de gráficos e calendário.
 
 Após alterar, reconstrua e publique a imagem (seção anterior) e rode `docker compose pull && docker compose up -d` no servidor.
 
 ## Atualizando a partir do EspoCRM upstream
 
-A branch `engaja-stable` é baseada na **tag estável** do EspoCRM (atualmente `9.3.8`) com os commits de customização por cima. Para acompanhar uma nova release:
+A branch `galpao-stable` é baseada na **tag estável** do EspoCRM (atualmente `9.3.8`) com os commits de customização por cima. Para acompanhar uma nova release:
 
 ```bash
 git remote add upstream https://github.com/espocrm/espocrm.git  # uma vez
 git fetch upstream --tags
-git checkout -b engaja-NOVA_VERSAO NOVA_VERSAO
-git cherry-pick <commits de customização da engaja-stable>
+git checkout -b galpao-NOVA_VERSAO NOVA_VERSAO
+git cherry-pick <commits de customização da galpao-stable>
 ```
 
 Atualize também a tag base no [`Dockerfile`](Dockerfile) (`FROM espocrm/espocrm:NOVA_VERSAO`), reconstrua e publique.

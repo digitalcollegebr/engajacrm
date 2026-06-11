@@ -1,0 +1,31 @@
+// Galpão Design CRM customizations on top of the variable overrides.
+
+@font-path: "../../fonts";
+@import "fonts.less";
+
+:root {
+    --font-family: Montserrat, Inter, sans-serif;
+}
+
+// Green primary elements need dark text for contrast
+.btn-primary,
+.label-primary,
+.badge.badge-primary {
+    color: #0E1F12;
+}
+
+// Brand accent on active navbar items
+#navbar .navbar .nav > li.active > a {
+    border-color: #25CE41;
+}
+
+// Wordmark logo is wide: keep it proportional in the navbar and login
+img.logo {
+    max-height: 22px;
+    width: auto;
+}
+
+#login .panel-body img.logo {
+    max-height: 32px;
+    width: auto;
+}

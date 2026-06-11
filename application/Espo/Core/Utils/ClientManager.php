@@ -249,7 +249,7 @@ class ClientManager
         $data = [
             'applicationId' => $this->applicationId,
             'apiUrl' => $this->apiUrl,
-            'applicationName' => $pageTitle ?? $this->config->get('applicationName', 'EngajaCRM'),
+            'applicationName' => $pageTitle ?? $this->config->get('applicationName', 'Galpão Design CRM'),
             'cacheTimestamp' => $cacheTimestamp,
             'appTimestamp' => $appTimestamp,
             'loaderCacheTimestamp' => Json::encode($loaderCacheTimestamp),

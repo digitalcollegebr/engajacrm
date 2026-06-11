@@ -1,7 +1,7 @@
 services:
-  engajacrm-db:
+  galpaocrm-db:
     image: mariadb:latest
-    container_name: engajacrm-db
+    container_name: galpaocrm-db
     command:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
@@ -13,7 +13,7 @@ services:
       MARIADB_USER: ${MARIADB_USER}
       MARIADB_PASSWORD: ${MARIADB_PASSWORD}
     volumes:
-      - engajacrm-db:/var/lib/mysql
+      - galpaocrm-db:/var/lib/mysql
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
@@ -22,15 +22,15 @@ services:
       retries: 5
       start_period: 30s
     networks:
-      - engajacrm-net
+      - galpaocrm-net
 
-  engajacrm:
-    image: danielmonteirodc/engajacrm:9.3.8
-    container_name: engajacrm
+  galpaocrm:
+    image: danielmonteirodc/galpaocrm:9.3.8
+    container_name: galpaocrm
     environment:
       TZ: ${TZ}
       ESPOCRM_DATABASE_PLATFORM: Mysql
-      ESPOCRM_DATABASE_HOST: engajacrm-db
+      ESPOCRM_DATABASE_HOST: galpaocrm-db
       ESPOCRM_DATABASE_PORT: 3306
       ESPOCRM_DATABASE_NAME: ${MARIADB_DATABASE}
       ESPOCRM_DATABASE_USER: ${MARIADB_USER}
@@ -50,67 +50,67 @@ services:
       ESPOCRM_THOUSAND_SEPARATOR: .
       ESPOCRM_DECIMAL_MARK: ","
 
-      ESPOCRM_CONFIG_THEME: Engaja
-      ESPOCRM_CONFIG_APPLICATION_NAME: EngajaCRM
+      ESPOCRM_CONFIG_THEME: Galpao
+      ESPOCRM_CONFIG_APPLICATION_NAME: "Galpão Design CRM"
 
       ESPOCRM_CONFIG_USE_WEB_SOCKET: "true"
       ESPOCRM_CONFIG_WEB_SOCKET_URL: "${WEBSOCKET_URL}"
-      ESPOCRM_CONFIG_WEB_SOCKET_ZERO_M_Q_SUBMISSION_DSN: "tcp://engajacrm-websocket:7777"
+      ESPOCRM_CONFIG_WEB_SOCKET_ZERO_M_Q_SUBMISSION_DSN: "tcp://galpaocrm-websocket:7777"
     volumes:
-      - engajacrm-data:/var/www/html
+      - galpaocrm-data:/var/www/html
     restart: unless-stopped
     depends_on:
-      engajacrm-db:
+      galpaocrm-db:
         condition: service_healthy
     ports:
       - "80:80"
     networks:
-      - engajacrm-net
+      - galpaocrm-net
 
-  engajacrm-daemon:
-    image: danielmonteirodc/engajacrm:9.3.8
-    container_name: engajacrm-daemon
+  galpaocrm-daemon:
+    image: danielmonteirodc/galpaocrm:9.3.8
+    container_name: galpaocrm-daemon
     environment:
       TZ: ${TZ}
     volumes:
-      - engajacrm-data:/var/www/html
+      - galpaocrm-data:/var/www/html
     restart: unless-stopped
     entrypoint: docker-daemon.sh
     depends_on:
-      engajacrm-db:
+      galpaocrm-db:
         condition: service_healthy
-      engajacrm:
+      galpaocrm:
         condition: service_started
     networks:
-      - engajacrm-net
+      - galpaocrm-net
 
-  engajacrm-websocket:
-    image: danielmonteirodc/engajacrm:9.3.8
-    container_name: engajacrm-websocket
+  galpaocrm-websocket:
+    image: danielmonteirodc/galpaocrm:9.3.8
+    container_name: galpaocrm-websocket
     environment:
       TZ: ${TZ}
       ESPOCRM_CONFIG_USE_WEB_SOCKET: "true"
       ESPOCRM_CONFIG_WEB_SOCKET_URL: "${WEBSOCKET_URL}"
       ESPOCRM_CONFIG_WEB_SOCKET_ZERO_M_Q_SUBSCRIBER_DSN: "tcp://*:7777"
-      ESPOCRM_CONFIG_WEB_SOCKET_ZERO_M_Q_SUBMISSION_DSN: "tcp://engajacrm-websocket:7777"
+      ESPOCRM_CONFIG_WEB_SOCKET_ZERO_M_Q_SUBMISSION_DSN: "tcp://galpaocrm-websocket:7777"
     volumes:
-      - engajacrm-data:/var/www/html
+      - galpaocrm-data:/var/www/html
     restart: unless-stopped
     entrypoint: docker-websocket.sh
     depends_on:
-      engajacrm-db:
+      galpaocrm-db:
         condition: service_healthy
-      engajacrm:
+      galpaocrm:
         condition: service_started
     ports:
       - "8080:8080"
     networks:
-      - engajacrm-net
+      - galpaocrm-net
 
 volumes:
-  engajacrm-db:
-  engajacrm-data:
+  galpaocrm-db:
+  galpaocrm-data:
 
 networks:
-  engajacrm-net:
+  galpaocrm-net:
     driver: bridge
