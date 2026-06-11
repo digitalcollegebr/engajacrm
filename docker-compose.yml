@@ -63,7 +63,7 @@ services:
       galpaocrm-db:
         condition: service_healthy
     ports:
-      - "80:80"
+      - "80"
     networks:
       - galpaocrm-net
 
@@ -103,7 +103,7 @@ services:
       galpaocrm:
         condition: service_started
     ports:
-      - "8080:8080"
+      - "8080"
     networks:
       - galpaocrm-net
 
