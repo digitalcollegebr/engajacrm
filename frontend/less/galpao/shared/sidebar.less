@@ -1,0 +1,31 @@
+// Sidebar: fixed dark steel color in both theme variants, active tab gets a
+// 3px amber-rust accent bar + accent-colored text.
+
+:root {
+    --sidebar-bg: #1b1b1d;
+    --sidebar-hover-bg: #262628;
+    --sidebar-text: #e4e2de;
+    --sidebar-accent: #C2661A;
+}
+
+.navbar li.tab > a {
+    border-left-width: 3px !important;
+}
+
+.navbar li.tab.active > a {
+    border-left-color: var(--sidebar-accent) !important;
+    color: var(--sidebar-accent) !important;
+
+    .short-label,
+    .full-label,
+    .more-icon {
+        color: var(--sidebar-accent) !important;
+    }
+}
+
+// Espo's core navbar-brand rule sets a fixed width AND height on the logo
+// without object-fit, which stretches/squashes a wide wordmark. Preserve its
+// aspect ratio instead.
+.navbar-brand img.logo {
+    object-fit: contain;
+}

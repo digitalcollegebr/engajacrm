@@ -1,4 +1,5 @@
-// Galpão Design CRM customizations on top of the variable overrides.
+// Galpão Design CRM (dark) customizations on top of the variable overrides.
+// Component-level rules are shared with the light theme — see ../galpao/shared/.
 
 @font-path: "../../fonts";
 @import "fonts.less";
@@ -6,21 +7,21 @@
 :root {
     --font-family: Montserrat, Inter, sans-serif;
     --font-family-monospace: "JetBrains Mono", "Roboto Mono", monospace;
-    --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07);
-    --card-hover: darken(@galpao-card, 3%);
-    --accent-text: @galpao-accent;
+    --card-shadow: 0 6px 16px -4px rgba(0, 0, 0, 0.45);
+    --card-hover: lighten(@galpao-card, 4%);
+    --accent-text: @galpao-accent-hover;
 }
 
-@import "shared/typography.less";
-@import "shared/buttons.less";
-@import "shared/badges.less";
-@import "shared/inputs.less";
-@import "shared/table.less";
-@import "shared/sidebar.less";
-@import "shared/toast.less";
-@import "shared/modal.less";
-@import "shared/animation.less";
-@import "shared/panels.less";
+@import "../galpao/shared/typography.less";
+@import "../galpao/shared/buttons.less";
+@import "../galpao/shared/badges.less";
+@import "../galpao/shared/inputs.less";
+@import "../galpao/shared/table.less";
+@import "../galpao/shared/sidebar.less";
+@import "../galpao/shared/toast.less";
+@import "../galpao/shared/modal.less";
+@import "../galpao/shared/animation.less";
+@import "../galpao/shared/panels.less";
 
 // Wordmark logo is wide: keep it proportional in the navbar and login
 img.logo {
@@ -44,8 +45,4 @@ img.logo {
     max-height: 32px;
     max-width: 100%;
     width: auto;
-
-    // The wordmark asset is light-colored for a dark background; on this
-    // theme's white login card it's nearly invisible, so render it dark instead.
-    filter: brightness(0) opacity(.85);
 }

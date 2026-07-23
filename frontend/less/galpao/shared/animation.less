@@ -1,0 +1,11 @@
+// Reusable fade-in utility for views/cards that opt in (no core Espo selector
+// is force-animated, to avoid guessing at unverified class names).
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.fade-in {
+    animation: fadeIn .25s ease both;
+}

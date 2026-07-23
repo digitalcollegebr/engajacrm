@@ -1,0 +1,34 @@
+// Badges: soft (~12%) opacity background + solid text, instead of Espo's
+// default solid background. Reuses the --state-*-bg/--state-*-text tokens,
+// which are already computed per theme in variables.less.
+
+.label-default {
+    background-color: var(--state-default-bg);
+    color: var(--state-default-text);
+}
+
+.label-primary,
+.label-accent {
+    background-color: var(--state-primary-bg);
+    color: var(--state-primary-text);
+}
+
+.label-success {
+    background-color: var(--state-success-bg);
+    color: var(--state-success-text);
+}
+
+.label-info {
+    background-color: var(--state-info-bg);
+    color: var(--state-info-text);
+}
+
+.label-warning {
+    background-color: var(--state-warning-bg);
+    color: var(--state-warning-text);
+}
+
+.label-danger {
+    background-color: var(--state-danger-bg);
+    color: var(--state-danger-text);
+}

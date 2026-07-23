@@ -31,3 +31,4 @@ client/css/espo/*
 client/lib/*
 client/modules/crm/lib/*
 .env
+/docker-compose.override.yml

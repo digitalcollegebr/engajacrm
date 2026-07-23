@@ -1,0 +1,70 @@
+// Extra button variants available for future use (.btn-accent / .btn-outline /
+// .btn-ghost). Existing templates keep using .btn-primary (solid amber-rust —
+// same as .btn-accent below), .btn-default (outline, via the token overrides
+// in variables.less) and .btn-link/.btn-text (ghost).
+
+.btn-accent {
+    color: var(--btn-primary-color);
+    background-color: var(--btn-primary-bg);
+    border-color: var(--btn-primary-border);
+
+    &:focus,
+    &.focus {
+        color: var(--btn-primary-color);
+        background-color: var(--btn-primary-bg);
+        border-color: var(--btn-primary-border);
+    }
+
+    &:hover {
+        color: var(--btn-primary-color);
+        background-color: var(--btn-primary-hover-bg);
+        border-color: var(--btn-primary-hover-border);
+    }
+
+    &:active:hover,
+    &.active:hover {
+        color: var(--btn-primary-color);
+        background-color: var(--btn-primary-active-bg);
+        border-color: var(--btn-primary-active-border);
+    }
+}
+
+.btn-outline {
+    color: var(--btn-default-color);
+    background-color: transparent;
+    border-color: var(--btn-default-border);
+
+    &:focus,
+    &.focus {
+        color: var(--btn-default-color);
+        background-color: transparent;
+        border-color: var(--btn-default-border);
+    }
+
+    &:hover {
+        color: var(--btn-default-color);
+        background-color: var(--btn-default-hover-bg);
+        border-color: var(--btn-default-hover-border);
+    }
+
+    &:active:hover,
+    &.active:hover {
+        color: var(--btn-default-color);
+        background-color: var(--btn-default-active-bg);
+        border-color: var(--btn-default-active-border);
+    }
+}
+
+.btn-ghost {
+    color: var(--btn-text-color);
+    background-color: transparent;
+    border-color: transparent;
+
+    &:hover,
+    &:focus {
+        color: var(--btn-text-color);
+        background-color: transparent;
+        border-color: transparent;
+        text-decoration: underline;
+    }
+}
