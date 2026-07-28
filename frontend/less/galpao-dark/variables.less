@@ -1,17 +1,16 @@
-// Galpão Design CRM theme (light) — industrial direction: steel/concrete
-// neutrals, amber-rust accent, moderate corners. Kept deliberately distinct
-// from both the old green/black CRM theme and the maroon/straight-corner
-// look of the separate proposal-system product.
+// Galpão Design CRM theme (dark) — industrial direction: steel/concrete
+// neutrals, amber-rust accent, moderate corners. Sidebar stays the same
+// fixed dark steel tone as the light variant (never redefined here).
 
-@galpao-bg: #eceae6;
-@galpao-card: #ffffff;
-@galpao-border: #dcdad4;
-@galpao-text: #232323;
-@galpao-text-secondary: #7a7770;
+@galpao-bg: #1c1c1e;
+@galpao-card: #2a2a2c;
+@galpao-border: #454547;
+@galpao-text: #e8e6e2;
+@galpao-text-secondary: #948f88;
 
 @galpao-accent: #C2661A;
-@galpao-accent-hover: darken(@galpao-accent, 8%);
-@galpao-accent-active: darken(@galpao-accent, 14%);
+@galpao-accent-hover: lighten(@galpao-accent, 8%);
+@galpao-accent-active: lighten(@galpao-accent, 14%);
 
 @galpao-success: #4C9A5B;
 @galpao-error: #C0392B;
@@ -34,7 +33,7 @@
 @gray-value: @galpao-text-secondary;
 @gray-soft-value: @galpao-text-secondary;
 @gray-light-value: @galpao-text-secondary;
-@gray-lighter-value: darken(@galpao-bg, 4%);
+@gray-lighter-value: lighten(@galpao-bg, 6%);
 
 @main-gray-value: @galpao-border;
 
@@ -47,33 +46,33 @@
 @brand-warning-value: @galpao-warning;
 @brand-info-value: @galpao-info;
 
-@state-primary-bg-value: fade(@galpao-accent, 12%);
-@state-primary-text-value: @galpao-accent;
-@state-primary-border-value: fade(@galpao-accent, 24%);
+@state-primary-bg-value: fade(@galpao-accent, 18%);
+@state-primary-text-value: lighten(@galpao-accent, 14%);
+@state-primary-border-value: fade(@galpao-accent, 32%);
 
-@state-success-bg-value: fade(@galpao-success, 12%);
-@state-success-text-value: @galpao-success;
-@state-success-border-value: fade(@galpao-success, 24%);
+@state-success-bg-value: fade(@galpao-success, 18%);
+@state-success-text-value: lighten(@galpao-success, 12%);
+@state-success-border-value: fade(@galpao-success, 32%);
 
-@state-danger-bg-value: fade(@galpao-error, 12%);
-@state-danger-text-value: @galpao-error;
-@state-danger-border-value: fade(@galpao-error, 24%);
+@state-danger-bg-value: fade(@galpao-error, 18%);
+@state-danger-text-value: lighten(@galpao-error, 12%);
+@state-danger-border-value: fade(@galpao-error, 32%);
 
-@state-warning-bg-value: fade(@galpao-warning, 14%);
-@state-warning-text-value: darken(@galpao-warning, 12%);
-@state-warning-border-value: fade(@galpao-warning, 26%);
+@state-warning-bg-value: fade(@galpao-warning, 18%);
+@state-warning-text-value: lighten(@galpao-warning, 14%);
+@state-warning-border-value: fade(@galpao-warning, 32%);
 
-@state-info-bg-value: fade(@galpao-info, 12%);
-@state-info-text-value: @galpao-info;
-@state-info-border-value: fade(@galpao-info, 24%);
+@state-info-bg-value: fade(@galpao-info, 18%);
+@state-info-text-value: lighten(@galpao-info, 16%);
+@state-info-border-value: fade(@galpao-info, 32%);
 
-@state-default-bg-value: fade(@galpao-text-secondary, 14%);
-@state-default-text-value: darken(@galpao-text-secondary, 20%);
+@state-default-bg-value: fade(@galpao-text-secondary, 18%);
+@state-default-text-value: lighten(@galpao-text-secondary, 14%);
 
-@warning-bg-value: fade(@galpao-warning, 8%);
+@warning-bg-value: fade(@galpao-warning, 10%);
 
-@link-color-value: @galpao-accent;
-@link-hover-color-value: darken(@galpao-accent, 10%);
+@link-color-value: lighten(@galpao-accent, 12%);
+@link-hover-color-value: lighten(@galpao-accent, 20%);
 
 @panel-bg-value: @galpao-card;
 @panel-default-bg-value: @panel-bg-value;
@@ -97,9 +96,9 @@
 @panel-info-text-value: @state-info-text-value;
 
 @table-bg-value: @galpao-card;
-@table-bg-accent-value: darken(@galpao-card, 3%);
+@table-bg-accent-value: lighten(@galpao-card, 3%);
 
-@code-bg-value: darken(@galpao-card, 3%);
+@code-bg-value: lighten(@galpao-card, 3%);
 @code-border-color-value: @galpao-border;
 @code-color-value: @galpao-text-secondary;
 
@@ -118,10 +117,10 @@
 @btn-default-bg-value: @galpao-card;
 @btn-default-border-value: @galpao-border;
 @btn-default-color-value: @galpao-text;
-@btn-default-hover-bg-value: darken(@galpao-card, 4%);
-@btn-default-hover-border-value: darken(@galpao-border, 6%);
-@btn-default-active-bg-value: darken(@galpao-card, 7%);
-@btn-default-active-border-value: darken(@galpao-border, 10%);
+@btn-default-hover-bg-value: lighten(@galpao-card, 5%);
+@btn-default-hover-border-value: lighten(@galpao-border, 6%);
+@btn-default-active-bg-value: lighten(@galpao-card, 9%);
+@btn-default-active-border-value: lighten(@galpao-border, 10%);
 
 @btn-success-bg-value: @galpao-success;
 @btn-success-border-value: @galpao-success;
@@ -158,7 +157,7 @@
 @input-border-value: @galpao-border;
 @input-border-focus-value: @galpao-accent;
 @input-border-width-value: 1.5px;
-@input-bg-disabled-value: darken(@galpao-card, 5%);
+@input-bg-disabled-value: lighten(@galpao-card, 6%);
 @input-color-disabled-value: @galpao-text-secondary;
 @input-box-shadow-value: none;
 
@@ -166,12 +165,12 @@
 
 @dropdown-bg-value: @galpao-card;
 @dropdown-link-color-value: @galpao-text;
-@dropdown-link-hover-color-value: @galpao-accent;
-@dropdown-link-hover-bg-value: darken(@galpao-card, 4%);
-@dropdown-link-active-bg-value: darken(@galpao-card, 6%);
+@dropdown-link-hover-color-value: lighten(@galpao-accent, 10%);
+@dropdown-link-hover-bg-value: lighten(@galpao-card, 5%);
+@dropdown-link-active-bg-value: lighten(@galpao-card, 8%);
 @dropdown-border-value: @galpao-border;
 @dropdown-divider-bg-value: @galpao-border;
-@dropdown-box-shadow-value: 0 4px 6px rgba(0, 0, 0, 0.11);
+@dropdown-box-shadow-value: 0 4px 6px rgba(0, 0, 0, 0.35);
 
 @select-item-bg-value: @table-bg-accent-value;
 @select-item-border-value: @galpao-border;
@@ -179,7 +178,7 @@
 
 @calendar-today-bg-value: @table-bg-accent-value;
 @calendar-border-value: @galpao-border;
-@calendar-busy-bg-value: fade(@galpao-error, 20%);
+@calendar-busy-bg-value: fade(@galpao-error, 28%);
 
 @label-color-value: #fff;
 @label-default-bg-value: @galpao-text-secondary;
@@ -188,7 +187,7 @@
 @well-border-value: @galpao-border;
 
 @scroll-bg-value: @galpao-bg;
-@scroll-thumb-bg-value: darken(@galpao-border, 10%);
+@scroll-thumb-bg-value: lighten(@galpao-border, 8%);
 
 @collapsed-modal-bg-value: @galpao-card;
 @collapsed-modal-text-color-value: @galpao-text;
@@ -197,14 +196,15 @@
 
 @site-footer-color-value: @galpao-text-secondary;
 
-// Overlay & shadows.
+// Overlay & shadows — stronger card shadow on dark surfaces so cards don't
+// flatten against the already-dark background.
 @modal-backdrop-bg-value: fade(#000, 50%);
 @modal-backdrop-filter-value: none;
-@modal-box-shadow-value: 0 10px 30px rgba(0, 0, 0, 0.18);
+@modal-box-shadow-value: 0 10px 30px rgba(0, 0, 0, 0.5);
 @modal-border-width-value: 0;
 
-@default-box-shadow-value: 0 4px 6px -1px rgba(0, 0, 0, 0.07);
-@top-bar-box-shadow-value: 0 1px 2px rgba(0, 0, 0, 0.06);
+@default-box-shadow-value: 0 6px 16px -4px rgba(0, 0, 0, 0.45);
+@top-bar-box-shadow-value: 0 1px 3px rgba(0, 0, 0, 0.4);
 
 // Moderate corners — distinct from the proposal system's straight 2/4/6 look
 // and the old theme's 4/6/10 look.
