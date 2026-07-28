@@ -25,7 +25,9 @@ services:
       - galpaocrm-net
 
   galpaocrm:
-    image: danielmonteirodc/galpaocrm:9.3.8
+    build:
+      context: .
+    image: galpaocrm:latest
     container_name: galpaocrm
     environment:
       TZ: ${TZ}
@@ -68,7 +70,7 @@ services:
       - galpaocrm-net
 
   galpaocrm-daemon:
-    image: danielmonteirodc/galpaocrm:9.3.8
+    image: galpaocrm:latest
     container_name: galpaocrm-daemon
     environment:
       TZ: ${TZ}
@@ -85,7 +87,7 @@ services:
       - galpaocrm-net
 
   galpaocrm-websocket:
-    image: danielmonteirodc/galpaocrm:9.3.8
+    image: galpaocrm:latest
     container_name: galpaocrm-websocket
     environment:
       TZ: ${TZ}
