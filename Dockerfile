@@ -43,3 +43,15 @@ FROM espocrm/espocrm:9.3.8
 # O entrypoint oficial copia /usr/src/espocrm para /var/www/html na primeira
 # execução do volume; sobrepor aqui leva o tema Engaja e o rebranding junto.
 COPY --from=builder /dist/. /usr/src/espocrm/
+
+# O volume /var/www/html é montado inteiro (modo "legacy"), então o entrypoint
+# oficial só copia /usr/src/espocrm pra dentro dele na primeira execução —
+# deploys seguintes nunca atualizam o código já instalado. Este wrapper
+# resincroniza o código (preservando data/ e custom/) toda vez que o
+# container sobe, sem interferir na instalação inicial de um volume vazio.
+COPY docker/sync-entrypoint.sh /usr/local/bin/sync-entrypoint.sh
+RUN chmod +x /usr/local/bin/sync-entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/sync-entrypoint.sh", "docker-entrypoint.sh"]
+# Definir um novo ENTRYPOINT zera o CMD herdado da imagem base — precisa
+# redeclarar explicitamente, senão o Apache nunca é iniciado.
+CMD ["apache2-foreground"]
