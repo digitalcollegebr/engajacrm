@@ -77,7 +77,7 @@ services:
     volumes:
       - galpaocrm-data:/var/www/html
     restart: unless-stopped
-    entrypoint: docker-daemon.sh
+    entrypoint: ["/usr/local/bin/sync-entrypoint.sh", "docker-daemon.sh"]
     depends_on:
       galpaocrm-db:
         condition: service_healthy
@@ -98,7 +98,7 @@ services:
     volumes:
       - galpaocrm-data:/var/www/html
     restart: unless-stopped
-    entrypoint: docker-websocket.sh
+    entrypoint: ["/usr/local/bin/sync-entrypoint.sh", "docker-websocket.sh"]
     depends_on:
       galpaocrm-db:
         condition: service_healthy
